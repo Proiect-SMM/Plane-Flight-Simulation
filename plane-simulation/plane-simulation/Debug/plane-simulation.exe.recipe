@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>E:\SMM - Plane Simulator\Plane-Flight-Simulation\plane-simulator\x64\Debug\plane-simulator.exe</FullPath>
+      <FullPath>E:\Repositories\Plane-Flight-Simulation\plane-simulation\Debug\plane-simulation.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

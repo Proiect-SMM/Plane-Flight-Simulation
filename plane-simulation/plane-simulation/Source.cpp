@@ -1,6 +1,6 @@
 #include <iostream>
 
 int main() {
-	std::cout << "Let's go!";
+	std::cout << "acum pe x86";
 	return 0;
 }
