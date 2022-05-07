@@ -17,15 +17,44 @@ const unsigned int SCR_HEIGHT = 720;
 
 Camera* pCamera = nullptr;
 
-int Run();
+//int Run();
 void scroll_callback(GLFWwindow* window, double xoffset, double yOffset);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
-int main() {
-	
-	Run();
+int main(void) {
+	GLFWwindow* window;
+
+	/* Initialize the library */
+	if (!glfwInit())
+		return -1;
+
+	/* Create a windowed mode window and its OpenGL context */
+	window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Hello World", NULL, NULL);
+	if (!window)
+	{
+		glfwTerminate();
+		return -1;
+	}
+
+	/* Make the window's context current */
+	glfwMakeContextCurrent(window);
+
+	/* Loop until the user closes the window */
+	while (!glfwWindowShouldClose(window))
+	{
+		/* Render here */
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		/* Swap front and back buffers */
+		glfwSwapBuffers(window);
+
+		/* Poll for and process events */
+		glfwPollEvents();
+	}
+
+	glfwTerminate();
 	return 0;
 }
 
@@ -79,43 +108,74 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 }
 
-int Run() {
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	// glfw window creation
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "plane-simulation", NULL, NULL);
-	if (window == NULL) {
-		std::cout << "Failed to create GLFW window" << std::endl;
-		glfwTerminate();
-		return -1;
-	}
-
-	glfwMakeContextCurrent(window);
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	glfwSetCursorPosCallback(window, mouse_callback);
-	glfwSetScrollCallback(window, scroll_callback);
-	glfwSetKeyCallback(window, key_callback);
-
-	glewInit();
-	glEnable(GL_DEPTH_TEST);
-
-	pCamera = new Camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0.0, 0.0, 3.0));
-	while (!glfwWindowShouldClose(window)) {
-		// per-frame time logic
-		double currentFrame = glfwGetTime();
-		deltaTime = currentFrame - lastFrame;
-		lastFrame = currentFrame;
-
-		// input
-		//processInput(window);
-
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	}
-
-	delete pCamera;
-
-}
+//int Run() {
+//	//GLFWwindow* window;
+//
+//	///* Initialize the library */
+//	//if (!glfwInit())
+//	//	return -1;
+//
+//	///* Create a windowed mode window and its OpenGL context */
+//	//window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+//	//if (!window)
+//	//{
+//	//	glfwTerminate();
+//	//	return -1;
+//	//}
+//
+//	///* Make the window's context current */
+//	//glfwMakeContextCurrent(window);
+//
+//	///* Loop until the user closes the window */
+//	//while (!glfwWindowShouldClose(window))
+//	//{
+//	//	/* Render here */
+//	//	glClear(GL_COLOR_BUFFER_BIT);
+//
+//	//	/* Swap front and back buffers */
+//	//	glfwSwapBuffers(window);
+//
+//	//	/* Poll for and process events */
+//	//	glfwPollEvents();
+//	//}
+//
+//	//glfwTerminate();
+//	//glfwInit();
+//	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+//	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+//	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+//
+//	//// glfw window creation
+//	//GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "plane-simulation", NULL, NULL);
+//	//if (window == NULL) {
+//	//	std::cout << "Failed to create GLFW window" << std::endl;
+//	//	glfwTerminate();
+//	//	return -1;
+//	//}
+//
+//	//glfwMakeContextCurrent(window);
+//	//glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+//	//glfwSetCursorPosCallback(window, mouse_callback);
+//	//glfwSetScrollCallback(window, scroll_callback);
+//	//glfwSetKeyCallback(window, key_callback);
+//
+//	//glewInit();
+//	//glEnable(GL_DEPTH_TEST);
+//
+//	//pCamera = new Camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0.0, 0.0, 3.0));
+//	//while (!glfwWindowShouldClose(window)) {
+//	//	// per-frame time logic
+//	//	double currentFrame = glfwGetTime();
+//	//	deltaTime = currentFrame - lastFrame;
+//	//	lastFrame = currentFrame;
+//
+//	//	// input
+//	//	//processInput(window);
+//
+//	//	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+//	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//	//}
+//
+//	//delete pCamera;
+//
+//}
