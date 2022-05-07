@@ -1,5 +1,7 @@
 #include <iostream>
 #include "Camera.h"
+#include <GL/glew.h>
+#include <glfw3.h>
 
 #pragma comment (lib, "glfw3dll.lib")
 #pragma comment (lib, "glew32.lib")
@@ -17,7 +19,6 @@ const unsigned int SCR_HEIGHT = 720;
 
 Camera* pCamera = nullptr;
 
-//int Run();
 void scroll_callback(GLFWwindow* window, double xoffset, double yOffset);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -31,7 +32,7 @@ int main(void) {
 		return -1;
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Hello World", NULL, NULL);
+	window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "plane-simulation", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -41,11 +42,35 @@ int main(void) {
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 
+	//tip : shader = program ce ruleaza pe gpu
+	//glew poate fi initializat doar dupa un context valid!!!!
+	if (glewInit() != GLEW_OK) {
+		std::cout << "Error at glew!";
+	}
+	
+	std::cout << glGetString(GL_VERSION) << "\n";
+
+
+	float positions[6] = {
+		-0.5f, -0.5f,
+		 0.0f,  0.5f,
+		 0.5f, -0.5f
+	};
+
+	unsigned int buffer;
+	glGenBuffers(1, &buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, buffer);
+	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW); //static, nu il modificam, dynamic - il modificam si il actualizam la fiecare frame, draw - se actualizeaza la fiecare frame, fara modificare
+
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
 		/* Render here */
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		//--desenare triunghi
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		//--stop desenare triunghi
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
@@ -107,75 +132,3 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		g_fn /= 2;
 	}
 }
-
-//int Run() {
-//	//GLFWwindow* window;
-//
-//	///* Initialize the library */
-//	//if (!glfwInit())
-//	//	return -1;
-//
-//	///* Create a windowed mode window and its OpenGL context */
-//	//window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-//	//if (!window)
-//	//{
-//	//	glfwTerminate();
-//	//	return -1;
-//	//}
-//
-//	///* Make the window's context current */
-//	//glfwMakeContextCurrent(window);
-//
-//	///* Loop until the user closes the window */
-//	//while (!glfwWindowShouldClose(window))
-//	//{
-//	//	/* Render here */
-//	//	glClear(GL_COLOR_BUFFER_BIT);
-//
-//	//	/* Swap front and back buffers */
-//	//	glfwSwapBuffers(window);
-//
-//	//	/* Poll for and process events */
-//	//	glfwPollEvents();
-//	//}
-//
-//	//glfwTerminate();
-//	//glfwInit();
-//	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-//	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-//	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-//
-//	//// glfw window creation
-//	//GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "plane-simulation", NULL, NULL);
-//	//if (window == NULL) {
-//	//	std::cout << "Failed to create GLFW window" << std::endl;
-//	//	glfwTerminate();
-//	//	return -1;
-//	//}
-//
-//	//glfwMakeContextCurrent(window);
-//	//glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-//	//glfwSetCursorPosCallback(window, mouse_callback);
-//	//glfwSetScrollCallback(window, scroll_callback);
-//	//glfwSetKeyCallback(window, key_callback);
-//
-//	//glewInit();
-//	//glEnable(GL_DEPTH_TEST);
-//
-//	//pCamera = new Camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0.0, 0.0, 3.0));
-//	//while (!glfwWindowShouldClose(window)) {
-//	//	// per-frame time logic
-//	//	double currentFrame = glfwGetTime();
-//	//	deltaTime = currentFrame - lastFrame;
-//	//	lastFrame = currentFrame;
-//
-//	//	// input
-//	//	//processInput(window);
-//
-//	//	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-//	//	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//	//}
-//
-//	//delete pCamera;
-//
-//}
