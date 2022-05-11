@@ -1,8 +1,11 @@
 #include <iostream>
-#include "Camera.h"
 #include <GL/glew.h>
-#include "Shader.h"
 #include <glfw3.h>
+
+#include "Camera.h"
+#include "Shader.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
 
 #pragma comment (lib, "glfw3dll.lib")
 #pragma comment (lib, "glew32.lib")
@@ -10,6 +13,7 @@
 
 double deltaTime = 0.0f;	// time between current frame and last frame
 double lastFrame = 0.0f;
+
 float g_fKa = 0.5;
 float g_fKd = 0.5;
 float g_fKs = 0.5;
@@ -20,8 +24,7 @@ const unsigned int SCR_HEIGHT = 600;
 
 Camera* pCamera = nullptr;
 
-static unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader);
-static unsigned int CompileShader(unsigned int type, const std::string& source);
+void processInput(GLFWwindow* window);
 void scroll_callback(GLFWwindow* window, double xoffset, double yOffset);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -33,6 +36,10 @@ int main(void) {
 	/* Initialize the library */
 	if (!glfwInit())
 		return -1;
+
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //setam pe COMPAT ca sa 
 
 	/* Create a windowed mode window and its OpenGL context */
 	window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "plane-simulation", NULL, NULL);
@@ -50,45 +57,56 @@ int main(void) {
 	if (glewInit() != GLEW_OK) {
 		std::cout << "Error at glew!";
 	}
-	
+
 	std::cout << glGetString(GL_VERSION) << "\n";
 
-
-	float positions[6] = {
-		-0.5f, -0.5f,
-		 0.0f,  0.5f,
-		 0.5f, -0.5f
+	float positions[] = {
+		-0.5f, -0.5f, //0 
+		 0.5f,  -0.5f, //1
+		 0.5f, 0.5f, //2
+		 -0.5f, 0.5f //3
 	};
 
-	unsigned int buffer;
-	glGenBuffers(1, &buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, buffer);
-	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW); 
-	//static- nu il modificam, dynamic - il modificam si il actualizam la fiecare frame, draw - se actualizeaza la fiecare frame, fara modificare
+	unsigned int indices[] = {
+		0, 1, 2,
+		2, 3, 0
+	};
+	unsigned int vao;
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao); //pentru core profile sa avem binding
 
-	//distanta dintre vertex-uri sizeof(float) * 2 este de 2 float-uri, yup
-	//0 = de la care se incepe
-	// 2 = cate float-uri avem per vertex
+	VertexBuffer vb(positions, 4 * 2 * sizeof(float));
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, (const void*) 0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, (const void*)0); // linia aceasta linkeaza buffer-ul cu vertex array (vao)
+	IndexBuffer ib(indices, 6);
+
 
 	Shader basicShader("basic.vs", "basic.fs");
 	basicShader.Use();
-	/*unsigned int shader = CreateShader(vertexShader, fragmentShader);
-	glUseProgram(shader);*/
-	
+	basicShader.SetVec4("u_Color", 1.0f, 1.0f, 0.0f, 1.0f);
+
+	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
 		/* Render here */
+		double currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+		processInput(window);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		//--desenare triunghi
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-		
-		//--stop desenare triunghi
+		//--desenare patrat
+		basicShader.SetVec4("u_Color", 0.5f, 1.0f, 0.0f, 1.0f);
+		glBindVertexArray(vao);
+		ib.Bind();
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+
+		//glDrawArrays(GL_TRIANGLES, 0, 3);
+		//--stop desenare patrat
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
@@ -154,9 +172,35 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yOffset)
 	pCamera->ProcessMouseScroll((float)yOffset);
 }
 
+void processInput(GLFWwindow* window)
+{
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, true);
+
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+		pCamera->ProcessKeyboard(Camera::FORWARD, (float)deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		pCamera->ProcessKeyboard(Camera::BACKWARD, (float)deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		pCamera->ProcessKeyboard(Camera::LEFT, (float)deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		pCamera->ProcessKeyboard(Camera::RIGHT, (float)deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_PAGE_UP) == GLFW_PRESS)
+		pCamera->ProcessKeyboard(Camera::UP, (float)deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_PAGE_DOWN) == GLFW_PRESS)
+		pCamera->ProcessKeyboard(Camera::DOWN, (float)deltaTime);
+
+	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) {
+		int width, height;
+		glfwGetWindowSize(window, &width, &height);
+		pCamera->Reset(width, height);
+
+	}
+}
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	if (key == GLFW_KEY_A && action == GLFW_PRESS && g_fKa < 1.0)
+	/*if (key == GLFW_KEY_A && action == GLFW_PRESS && g_fKa < 1.0)
 	{
 		g_fKa += 0.1;
 	}
@@ -187,5 +231,5 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	if (key == GLFW_KEY_M && action == GLFW_PRESS && g_fn > 0.0)
 	{
 		g_fn /= 2;
-	}
+	}*/
 }

@@ -26,6 +26,8 @@ public:
 	unsigned int loc_projection_matrix;
 
 	// utility uniform functions
+	void SetVec4(const std::string& name, const::glm::vec4& value) const;
+	void SetVec4(const std::string& name, float a, float b, float c, float d) const;
 	void SetVec3(const std::string& name, const glm::vec3& value) const;
 	void SetVec3(const std::string& name, float x, float y, float z) const;
 	void SetValue(const std::string& name, float fValue) const;

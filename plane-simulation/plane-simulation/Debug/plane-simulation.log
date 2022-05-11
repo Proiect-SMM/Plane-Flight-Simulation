@@ -1,8 +1,2 @@
 ﻿  Source.cpp
-C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(161,15): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(165,15): warning C4305: '-=': truncation from 'double' to 'float'
-C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(169,15): warning C4305: '-=': truncation from 'double' to 'float'
-C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(173,15): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(177,15): warning C4305: '-=': truncation from 'double' to 'float'
-C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(181,15): warning C4305: '+=': truncation from 'double' to 'float'
   plane-simulation.vcxproj -> C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\Debug\plane-simulation.exe

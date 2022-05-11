@@ -4,7 +4,8 @@
 #include <GLM.hpp>
 #include <glfw3.h>
 
-#include <stdlib.h> // necesare pentru citirea shader-elor
+// necesare pentru citirea shader-elor
+#include <stdlib.h> 
 #include <stdio.h>
 #include <math.h> 
 
@@ -14,7 +15,7 @@
 class Camera
 {
 public:
-	enum class ECameraMovementType
+	enum ECameraMovementType
 	{
 		UNKNOWN,
 		FORWARD,
