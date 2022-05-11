@@ -6,6 +6,8 @@
 #include "Shader.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "VertexArray.h"
+#include "Renderer.h"
 
 #pragma comment (lib, "glfw3dll.lib")
 #pragma comment (lib, "glew32.lib")
@@ -24,6 +26,7 @@ const unsigned int SCR_HEIGHT = 600;
 
 Camera* pCamera = nullptr;
 
+void Cleanup();
 void processInput(GLFWwindow* window);
 void scroll_callback(GLFWwindow* window, double xoffset, double yOffset);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -72,23 +75,26 @@ int main(void) {
 		2, 3, 0
 	};
 	unsigned int vao;
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao); //pentru core profile sa avem binding
-
+	
+	VertexArray va;
 	VertexBuffer vb(positions, 4 * 2 * sizeof(float));
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, (const void*)0); // linia aceasta linkeaza buffer-ul cu vertex array (vao)
+
+	VertexBufferLayout layout;
+	layout.Push<float>(2);
+	va.AttachBuffer(vb, layout);
 	IndexBuffer ib(indices, 6);
 
 
 	Shader basicShader("basic.vs", "basic.fs");
-	basicShader.Use();
+	basicShader.Bind();
 	basicShader.SetVec4("u_Color", 1.0f, 1.0f, 0.0f, 1.0f);
 
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	va.UnBind();
+	vb.UnBind();
+	ib.UnBind();
+	basicShader.UnBind();
 
+	Renderer render;
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
@@ -100,10 +106,11 @@ int main(void) {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//--desenare patrat
+		basicShader.Bind();
 		basicShader.SetVec4("u_Color", 0.5f, 1.0f, 0.0f, 1.0f);
-		glBindVertexArray(vao);
-		ib.Bind();
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+		render.Draw(va, ib, basicShader);
+
+		//pCamera = new Camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0.0, 0.0, 3.0));
 
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		//--stop desenare patrat
@@ -114,6 +121,7 @@ int main(void) {
 		/* Poll for and process events */
 		glfwPollEvents();
 	}
+	Cleanup();
 
 	glfwTerminate();
 	return 0;
@@ -158,6 +166,10 @@ int main(void) {
 //	return program;
 //}
 
+
+void Cleanup() {
+	delete pCamera;
+}
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	pCamera->Reshape(width, height);
 }

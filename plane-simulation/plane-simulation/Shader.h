@@ -17,7 +17,8 @@ public:
 	~Shader();
 	// activate the shader
 	// ------------------------------------------------------------------------
-	void Use() const;
+	void Bind() const;
+	void UnBind() const;
 	unsigned int GetID() const { return ID; }
 
 	// MVP

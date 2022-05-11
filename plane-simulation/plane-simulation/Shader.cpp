@@ -10,9 +10,14 @@ Shader::~Shader()
 	glDeleteProgram(ID);
 }
 
-void Shader::Use() const
+void Shader::Bind() const
 {
 	glUseProgram(ID);
+}
+
+void Shader::UnBind() const
+{
+	glUseProgram(0);
 }
 
 void Shader::SetVec4(const std::string& name, const::glm::vec4& value) const
