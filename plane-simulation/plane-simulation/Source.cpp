@@ -54,7 +54,10 @@ int main(void) {
 
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
-
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	glfwSetCursorPosCallback(window, mouse_callback);
+	glfwSetScrollCallback(window, scroll_callback);
+	//glfwSetKeyCallback(window, key_callback);
 	//tip : shader = cod ce ruleaza pe gpu
 	//glew poate fi initializat doar dupa un context valid!!!!
 	if (glewInit() != GLEW_OK) {
@@ -74,20 +77,63 @@ int main(void) {
 		0, 1, 2,
 		2, 3, 0
 	};
-	unsigned int vao;
-	
-	VertexArray va;
-	VertexBuffer vb(positions, 4 * 2 * sizeof(float));
 
+	float vertices[] = {
+	   -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+	   0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+	   0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+	   0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+	   -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+	   -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+
+	   -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+	   0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+	   0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+	   0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+	   -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+	   -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+
+	   -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+	   -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+	   -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+	   -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+	   -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+	   -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+
+	   0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+	   0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+	   0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+	   0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+	   0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+	   0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+
+	   -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+	   0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+	   0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+	   0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+	   -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+	   -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+
+	   -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+	   0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+	   0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+	   0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+	   -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+	   -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
+	};
+
+	VertexArray va;
+	VertexBuffer vb(positions, 4 *  2* sizeof(float));
 	VertexBufferLayout layout;
 	layout.Push<float>(2);
-	va.AttachBuffer(vb, layout);
-	IndexBuffer ib(indices, 6);
 
+	va.AttachBuffer(vb, layout);
+
+	IndexBuffer ib(indices, 6);
 
 	Shader basicShader("basic.vs", "basic.fs");
 	basicShader.Bind();
-	basicShader.SetVec4("u_Color", 1.0f, 1.0f, 0.0f, 1.0f);
+	basicShader.SetVec4("u_Color", 1.0f, 0.3f, 0.2f, 1.0f);
 
 	va.UnBind();
 	vb.UnBind();
@@ -102,15 +148,14 @@ int main(void) {
 		double currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
+		render.Clear();
 		processInput(window);
-		glClear(GL_COLOR_BUFFER_BIT);
 
 		//--desenare patrat
 		basicShader.Bind();
 		basicShader.SetVec4("u_Color", 0.5f, 1.0f, 0.0f, 1.0f);
 		render.Draw(va, ib, basicShader);
-
-		//pCamera = new Camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0.0, 0.0, 3.0));
+		pCamera = new Camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0.0, 0.0, 3.0));
 
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		//--stop desenare patrat
@@ -126,50 +171,11 @@ int main(void) {
 	glfwTerminate();
 	return 0;
 }
-//
-//static unsigned int CompileShader(unsigned int type, const std::string& source) {
-//	unsigned int id = glCreateShader(type);
-//	const char* src = source.c_str();
-//	glShaderSource(id, 1, &src, nullptr);
-//	glCompileShader(id);
-//	
-//	//Error handling
-//	int result;
-//	glGetShaderiv(id, GL_COMPILE_STATUS, &result);
-//	if (result == GL_FALSE) {
-//		int length;
-//		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-//		char * message = (char*) alloca(length * sizeof(char));
-//		glGetShaderInfoLog(id, length, &length, message);
-//		std::cout << "Failed to compile shader!" << std::endl;
-//		std::cout << message << std::endl;
-//		glDeleteShader(id);
-//		return 0;
-//	}
-//
-//	return id;
-//}
-//
-//static unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader) {
-//	unsigned int program = glCreateProgram();
-//	unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
-//	unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
-//
-//	glAttachShader(program, vs);
-//	glAttachShader(program, fs);
-//	glLinkProgram(program);
-//	glValidateProgram(program);
-//
-//	glDeleteShader(vs);
-//	glDeleteShader(fs);
-//
-//	return program;
-//}
-
 
 void Cleanup() {
 	delete pCamera;
 }
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	pCamera->Reshape(width, height);
 }

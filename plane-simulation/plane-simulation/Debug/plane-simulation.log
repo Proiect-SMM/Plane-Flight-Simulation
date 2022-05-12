@@ -1,5 +1,2 @@
-﻿  Renderer.cpp
-  Source.cpp
-C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(77,15): warning C4101: 'vao': unreferenced local variable
-  Generating Code...
+﻿  Source.cpp
   plane-simulation.vcxproj -> C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\Debug\plane-simulation.exe
