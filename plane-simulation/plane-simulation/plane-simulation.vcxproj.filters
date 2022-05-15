@@ -16,6 +16,9 @@
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{423c92a4-e409-4b69-945b-8f3d58c32ca2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Skybox">
+      <UniqueIdentifier>{7e80a586-4c07-4561-a43f-09dfd51f7d09}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -73,5 +76,25 @@
     <None Include="basic.fs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="bluecloud_bk.jpg">
+      <Filter>Resource Files\Skybox</Filter>
+    </Image>
+    <Image Include="bluecloud_dn.jpg">
+      <Filter>Resource Files\Skybox</Filter>
+    </Image>
+    <Image Include="bluecloud_ft.jpg">
+      <Filter>Resource Files\Skybox</Filter>
+    </Image>
+    <Image Include="bluecloud_lf.jpg">
+      <Filter>Resource Files\Skybox</Filter>
+    </Image>
+    <Image Include="bluecloud_rt.jpg">
+      <Filter>Resource Files\Skybox</Filter>
+    </Image>
+    <Image Include="bluecloud_up.jpg">
+      <Filter>Resource Files\Skybox</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -167,6 +167,14 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="bluecloud_bk.jpg" />
+    <Image Include="bluecloud_dn.jpg" />
+    <Image Include="bluecloud_ft.jpg" />
+    <Image Include="bluecloud_lf.jpg" />
+    <Image Include="bluecloud_rt.jpg" />
+    <Image Include="bluecloud_up.jpg" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
