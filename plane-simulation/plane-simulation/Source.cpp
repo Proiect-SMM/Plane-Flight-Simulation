@@ -16,6 +16,8 @@
 double deltaTime = 0.0f;	// time between current frame and last frame
 double lastFrame = 0.0f;
 
+//test
+
 float g_fKa = 0.5;
 float g_fKd = 0.5;
 float g_fKs = 0.5;
