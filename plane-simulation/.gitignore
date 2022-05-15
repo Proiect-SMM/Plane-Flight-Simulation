@@ -7,11 +7,6 @@
 *.o
 *.obj
 *.vs/
-*.log
-*.ilk
-*.pdb
-*.tlog
-*.idb
 
 # Precompiled Headers
 *.gch
