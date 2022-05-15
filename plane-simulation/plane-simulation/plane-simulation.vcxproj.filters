@@ -103,6 +103,24 @@
     <None Include="basic.fs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="Lamp.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="Lamp.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="ShadowMapping.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="ShadowMapping.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="ShadowMappingDepth.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="ShadowMappingDepth.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="bluecloud_bk.jpg">

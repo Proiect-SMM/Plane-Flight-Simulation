@@ -17,6 +17,6 @@ public:
 	void SetType(const std::string&);
 	std::string GetType();
 	std::string GetFileName();
-
+	
 	static unsigned int CreateTexture(const std::string& texturePath);
 };

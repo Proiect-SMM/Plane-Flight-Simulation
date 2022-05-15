@@ -139,6 +139,8 @@ int main(void) {
 	basicShader.Bind();
 	basicShader.SetVec4("u_Color", 1.0f, 0.3f, 0.2f, 1.0f);
 
+	pCamera = new Camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0.0, 0.0, 3.0));
+
 	va.UnBind();
 	vb.UnBind();
 	ib.UnBind();
@@ -159,7 +161,7 @@ int main(void) {
 		basicShader.Bind();
 		basicShader.SetVec4("u_Color", 0.5f, 1.0f, 0.0f, 1.0f);
 		render.Draw(va, ib, basicShader);
-		pCamera = new Camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0.0, 0.0, 3.0));
+		
 
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		//--stop desenare patrat
