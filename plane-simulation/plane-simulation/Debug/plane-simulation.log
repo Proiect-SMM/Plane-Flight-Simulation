@@ -1,2 +1,74 @@
-﻿  Source.cpp
-  plane-simulation.vcxproj -> C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\Debug\plane-simulation.exe
+﻿  Camera.cpp
+  Mesh.cpp
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Mesh.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Mesh.cpp(37,35): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  Model.cpp
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Mesh.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.31.31103\include\xmemory(680,47): error C2440: 'initializing': cannot convert from 'Texture' to '_Objty'
+          with
+          [
+              _Objty=Texture *
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.31.31103\include\xmemory(680,47): message : No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.31.31103\include\xmemory(1651): message : see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,Texture&>(_Alloc &,_Objty *const ,Texture &)' being compiled
+          with
+          [
+              _Alloc=std::allocator<Texture *>,
+              _Ty=Texture *,
+              _Objty=Texture *
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.31.31103\include\xmemory(1652): message : see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,Texture&>(_Alloc &,_Objty *const ,Texture &)' being compiled
+          with
+          [
+              _Alloc=std::allocator<Texture *>,
+              _Ty=Texture *,
+              _Objty=Texture *
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.31.31103\include\xmemory(1691): message : see reference to function template instantiation 'void std::_Uninitialized_backout_al<_Alloc>::_Emplace_back<Texture&>(Texture &)' being compiled
+          with
+          [
+              _Alloc=std::allocator<Texture *>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.31.31103\include\xmemory(1691): message : see reference to function template instantiation 'void std::_Uninitialized_backout_al<_Alloc>::_Emplace_back<Texture&>(Texture &)' being compiled
+          with
+          [
+              _Alloc=std::allocator<Texture *>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.31.31103\include\vector(869): message : see reference to function template instantiation 'Texture **std::_Uninitialized_copy<_Iter,std::allocator<Texture *>>(const _InIt,const _InIt,Texture **,_Alloc &)' being compiled
+          with
+          [
+              _Iter=Texture *,
+              _InIt=Texture *,
+              _Alloc=std::allocator<Texture *>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.31.31103\include\vector(965): message : see reference to function template instantiation 'void std::vector<Texture *,std::allocator<Texture *>>::_Insert_range<Texture*>(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,_Iter,_Iter,std::forward_iterator_tag)' being compiled
+          with
+          [
+              _Ty=Texture *,
+              _Iter=Texture *
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.31.31103\include\vector(965): message : see reference to function template instantiation 'void std::vector<Texture *,std::allocator<Texture *>>::_Insert_range<Texture*>(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,_Iter,_Iter,std::forward_iterator_tag)' being compiled
+          with
+          [
+              _Ty=Texture *,
+              _Iter=Texture *
+          ]
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Model.cpp(119): message : see reference to function template instantiation 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> std::vector<_Ty,std::allocator<_Ty>>::insert<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<Texture>>>,0>(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,_Iter,_Iter)' being compiled
+          with
+          [
+              _Ty=Texture *,
+              _Iter=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<Texture>>>
+          ]
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Model.cpp(119): message : see reference to function template instantiation 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> std::vector<_Ty,std::allocator<_Ty>>::insert<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<Texture>>>,0>(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,_Iter,_Iter)' being compiled
+          with
+          [
+              _Ty=Texture *,
+              _Iter=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<Texture>>>
+          ]
+  Renderer.cpp
+  Shader.cpp
+  Source.cpp
+  Texture.cpp
+  VertexArray.cpp
+  VertexBufferLayout.cpp
+  Generating Code...

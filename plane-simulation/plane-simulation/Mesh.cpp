@@ -9,8 +9,6 @@ Mesh::Mesh(std::vector<Vertex> vert, std::vector<unsigned int> ind, std::vector<
 
 	setupMesh();
 }
-<<<<<<< Updated upstream
-=======
 
 void Mesh::Draw(const Shader* shader) {
 	unsigned int diffuseNr = 0;
@@ -80,4 +78,3 @@ void Mesh::setupMesh()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 
 }
->>>>>>> Stashed changes

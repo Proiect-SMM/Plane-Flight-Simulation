@@ -31,6 +31,7 @@ std::string Texture::GetFileName()
 	return fileName;
 }
 
+
 unsigned int Texture::CreateTexture(const std::string& strTexturePath)
 {
 	unsigned int textureId = -1;

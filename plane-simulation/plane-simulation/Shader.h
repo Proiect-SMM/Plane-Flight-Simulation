@@ -8,7 +8,7 @@
 #include <fstream>
 #include <glm.hpp>
 #include <sstream>
-#include <GL/glew.h>
+#include <glew.h> 
 
 class Shader
 {
