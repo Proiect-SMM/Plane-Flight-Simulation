@@ -3,28 +3,21 @@
 #include <glfw3.h>
 
 #include "Camera.h"
+#include "Mesh.h"
 #include "Shader.h"
-#include "VertexBuffer.h"
-#include "IndexBuffer.h"
-#include "VertexArray.h"
-#include "Renderer.h"
+#include "LoadObject.h"
+#include "Skybox.h"
 
 #pragma comment (lib, "glfw3dll.lib")
 #pragma comment (lib, "glew32.lib")
 #pragma comment (lib, "OpenGL32.lib")
 
-double deltaTime = 0.0f;	// time between current frame and last frame
-double lastFrame = 0.0f;
+double deltaTime = 0.5f;	// time between current frame and last frame
+double lastFrame = 0.5f;
 
 //test
-
-float g_fKa = 0.5;
-float g_fKd = 0.5;
-float g_fKs = 0.5;
-float g_fn = 1;
-
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_WIDTH = 1280;
+const unsigned int SCR_HEIGHT = 720;
 
 Camera* pCamera = nullptr;
 
@@ -34,24 +27,79 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yOffset);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+void InitWindow(GLFWwindow* (&window), const std::string& title);
 
 int main(void) {
 	GLFWwindow* window;
+	InitWindow(window, "Plane-Simulation");
 
+	glEnable(GL_DEPTH_TEST);
+
+	Shader plmshader("basic.vs", "basic.fs");
+
+	Skybox skybox;
+
+	Model airplane = LoadObject::LoadModel("11804_Airplane_v2_l2.obj");
+
+	pCamera = new Camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0.0, 0.0, 10.0));
+
+	/* Loop until the user closes the window */
+	while (!glfwWindowShouldClose(window))
+	{
+		/* Render here */
+		double currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+		processInput(window);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		
+		glDepthMask(GL_FALSE);
+		skybox.Draw(pCamera);
+		glDisable(GL_DEPTH_TEST);
+		glDepthMask(GL_TRUE);
+
+		glEnable(GL_DEPTH_TEST);
+
+		plmshader.Bind();
+		plmshader.SetMat4("projection", pCamera->GetProjectionMatrix());
+		plmshader.SetMat4("view", pCamera->GetViewMatrix());
+		glm::mat4 model = glm::scale(glm::mat4(1), glm::vec3(0.01f));
+		model = glm::rotate(model, -90.f, {1.0f, 0.0f, 0.0f });
+		plmshader.SetMat4("model", model);
+		airplane.Draw(plmshader);
+
+		
+		//glDrawArrays(GL_TRIANGLES, 0, 3);
+		//--stop desenare patrat
+
+		/* Swap front and back buffers */
+		glfwSwapBuffers(window);
+
+		/* Poll for and process events */
+		glfwPollEvents();
+	}
+	Cleanup();
+
+	glfwTerminate();
+	return 0;
+}
+void InitWindow(GLFWwindow* (&window), const std::string& title) {
 	/* Initialize the library */
 	if (!glfwInit())
-		return -1;
+		exit(-1);
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //setam pe COMPAT ca sa 
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "plane-simulation", NULL, NULL);
+	window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, title.c_str(), NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
-		return -1;
+		exit(-1);
 	}
 
 	/* Make the window's context current */
@@ -67,115 +115,6 @@ int main(void) {
 	}
 
 	std::cout << glGetString(GL_VERSION) << "\n";
-
-	float positions[] = {
-		-0.5f, -0.5f, //0 
-		 0.5f,  -0.5f, //1
-		 0.5f, 0.5f, //2
-		 -0.5f, 0.5f //3
-	};
-
-	unsigned int indices[] = {
-		0, 1, 2,
-		2, 3, 0
-	};
-
-	//test 
-
-	float vertices[] = {
-	   -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	   0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	   0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	   0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	   -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	   -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-
-	   -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-	   0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-	   0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-	   0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-	   -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-	   -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-
-	   -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-	   -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-	   -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-	   -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-	   -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-	   -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-
-	   0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-	   0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	   0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	   0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	   0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-	   0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-
-	   -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-	   0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-	   0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	   0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	   -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	   -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-
-	   -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-	   0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-	   0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	   0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	   -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	   -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
-	};
-
-	VertexArray va;
-	VertexBuffer vb(positions, 4 *  2* sizeof(float));
-	VertexBufferLayout layout;
-	layout.Push<float>(2);
-
-	va.AttachBuffer(vb, layout);
-
-	IndexBuffer ib(indices, 6);
-
-	Shader basicShader("basic.vs", "basic.fs");
-	basicShader.Bind();
-	basicShader.SetVec4("u_Color", 1.0f, 0.3f, 0.2f, 1.0f);
-
-	pCamera = new Camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0.0, 0.0, 3.0));
-
-	va.UnBind();
-	vb.UnBind();
-	ib.UnBind();
-	basicShader.UnBind();
-
-	Renderer render;
-	/* Loop until the user closes the window */
-	while (!glfwWindowShouldClose(window))
-	{
-		/* Render here */
-		double currentFrame = glfwGetTime();
-		deltaTime = currentFrame - lastFrame;
-		lastFrame = currentFrame;
-		render.Clear();
-		processInput(window);
-
-		//--desenare patrat
-		basicShader.Bind();
-		basicShader.SetVec4("u_Color", 0.5f, 1.0f, 0.0f, 1.0f);
-		render.Draw(va, ib, basicShader);
-		
-
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
-		//--stop desenare patrat
-
-		/* Swap front and back buffers */
-		glfwSwapBuffers(window);
-
-		/* Poll for and process events */
-		glfwPollEvents();
-	}
-	Cleanup();
-
-	glfwTerminate();
-	return 0;
 }
 
 void Cleanup() {
