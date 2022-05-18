@@ -105,8 +105,9 @@ void Airplane::Draw(const Shader* shader)
 	
 	glm::mat4 model_mat(1.0f);
 	model_mat = glm::translate(model_mat, position);
-	model_mat = glm::translate(model_mat, { 0.0f, 0.0f, 1.0f });
-	model_mat = glm::rotate(model_mat, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	model_mat = glm::translate(model_mat, { 0.0f, 0.0f, 0.0f });
+	model_mat = glm::rotate(model_mat, glm::radians(-90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	model_mat = glm::rotate(model_mat, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	model_mat = glm::rotate(model_mat, rotation.x, { 1.0f, 0.0f, 0.0f });
 	model_mat = glm::rotate(model_mat, rotation.y, { 0.0f, 1.0f, 0.0f });
 	model_mat = glm::rotate(model_mat, rotation.z, { 0.0f, 0.0f, 1.0f });

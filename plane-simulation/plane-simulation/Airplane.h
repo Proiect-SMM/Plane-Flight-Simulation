@@ -48,7 +48,7 @@ public:
 	void ModifyRoll(const float& deltaTime, const int& dir);
 
 	void SetScale(const glm::vec3&);
-	void Rotate(const glm::vec3&);
+	
 	void AddForce(const glm::vec3&);
 	void Draw(const Shader*);
 	void Update(const float&);
