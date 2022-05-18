@@ -1,5 +1,6 @@
 #pragma once
 #include "Mesh.h"
+
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -22,5 +23,5 @@ public:
 	{
 		LoadModel(path);
 	}
-	void Draw(Shader* shader);
+	void Draw(const Shader* shader);
 };
