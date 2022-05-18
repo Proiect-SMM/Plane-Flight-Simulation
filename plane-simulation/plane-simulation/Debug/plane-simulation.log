@@ -1,3 +1,10 @@
-﻿  Skybox.cpp
-C:\Users\adeli\OneDrive\Desktop\Sem 2 anul 2\PID\ImageProcessingFramework-main\ImageProcessingFramework-main\Plane-Flight-Simulation\plane-simulation\plane-simulation\Skybox.cpp(115,115): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  plane-simulation.vcxproj -> C:\Users\adeli\OneDrive\Desktop\Sem 2 anul 2\PID\ImageProcessingFramework-main\ImageProcessingFramework-main\Plane-Flight-Simulation\plane-simulation\Debug\plane-simulation.exe
+﻿  Source.cpp
+C:\Users\adeli\OneDrive\Desktop\Sem 2 anul 2\PID\ImageProcessingFramework-main\ImageProcessingFramework-main\Plane-Flight-Simulation\plane-simulation\plane-simulation\Mesh.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Model.cpp
+C:\Users\adeli\OneDrive\Desktop\Sem 2 anul 2\PID\ImageProcessingFramework-main\ImageProcessingFramework-main\Plane-Flight-Simulation\plane-simulation\plane-simulation\Mesh.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\adeli\OneDrive\Desktop\Sem 2 anul 2\PID\ImageProcessingFramework-main\ImageProcessingFramework-main\Plane-Flight-Simulation\plane-simulation\plane-simulation\Model.cpp(123,46): error C2664: 'Mesh::Mesh(std::vector<Vertex,std::allocator<Vertex>>,std::vector<unsigned int,std::allocator<unsigned int>>,Material)': cannot convert argument 3 from 'std::vector<Texture *,std::allocator<Texture *>>' to 'Material'
+C:\Users\adeli\OneDrive\Desktop\Sem 2 anul 2\PID\ImageProcessingFramework-main\ImageProcessingFramework-main\Plane-Flight-Simulation\plane-simulation\plane-simulation\Model.cpp(123,37): message : No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+C:\Users\adeli\OneDrive\Desktop\Sem 2 anul 2\PID\ImageProcessingFramework-main\ImageProcessingFramework-main\Plane-Flight-Simulation\plane-simulation\plane-simulation\Mesh.h(39,2): message : see declaration of 'Mesh::Mesh'
+C:\Users\adeli\OneDrive\Desktop\Sem 2 anul 2\PID\ImageProcessingFramework-main\ImageProcessingFramework-main\Plane-Flight-Simulation\plane-simulation\plane-simulation\Model.cpp(165,25): error C2664: 'void Mesh::Draw(Shader &)': cannot convert argument 1 from 'const Shader' to 'Shader &'
+C:\Users\adeli\OneDrive\Desktop\Sem 2 anul 2\PID\ImageProcessingFramework-main\ImageProcessingFramework-main\Plane-Flight-Simulation\plane-simulation\plane-simulation\Model.cpp(165,19): message : Conversion loses qualifiers
+C:\Users\adeli\OneDrive\Desktop\Sem 2 anul 2\PID\ImageProcessingFramework-main\ImageProcessingFramework-main\Plane-Flight-Simulation\plane-simulation\plane-simulation\Mesh.h(41,7): message : see declaration of 'Mesh::Draw'
