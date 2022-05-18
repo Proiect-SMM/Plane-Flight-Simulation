@@ -58,6 +58,5 @@ public:
 	void ApplyDrag(const float& deltaTime);
 
 	void ProcessInput(const float&);
-
 };
 

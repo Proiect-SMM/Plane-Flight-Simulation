@@ -1,4 +1,34 @@
-﻿  Skybox.cpp
+﻿  Airplane.cpp
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Mesh.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Airplane.cpp(136,19): warning C4305: '=': truncation from 'double' to 'T'
+          with
+          [
+              T=float
+          ]
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Airplane.cpp(169,18): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Camera.cpp
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Mesh.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Skybox.cpp
 C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Mesh.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Skybox.cpp(115,115): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Source.cpp
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Mesh.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(89,28): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(99,71): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(101,68): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(103,72): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(105,69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(108,34): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(110,34): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(115,34): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(118,33): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(124,34): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(127,33): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(131,31): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(134,31): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(137,25): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Source.cpp(284,26): warning C4244: 'argument': conversion from 'double' to 'const float', possible loss of data
+  Terrain.cpp
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Mesh.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Generating Code...
   plane-simulation.vcxproj -> C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\Debug\plane-simulation.exe

@@ -1,7 +1,3 @@
-#define SHADOW_WIDTH  3072
-#define SHADOW_HEIGHT 3072
-
-
 #include <Windows.h>
 #include <iostream>
 #include <glew.h>
@@ -32,6 +28,9 @@ unsigned int depthMap = 0;
 
 double deltaTime = 0.0;
 double lastFrame = 0.0;
+
+#define SHADOW_WIDTH  4096
+#define SHADOW_HEIGHT 4096
 
 void InitDepthFBO()
 {
@@ -70,7 +69,6 @@ void InitTerrain()
 {
     terrain = new Terrain("terrain/map.jpg");
 }
-
 
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -140,7 +138,6 @@ void ProcessInput(GLFWwindow* window, Camera* camera, Airplane* airplane)
 
 }
 
-/// Initializeaza fereastra si face un contex OpenGL in aceasta fereastra
 void InitWindow(GLFWwindow* (&window), const std::string& title)
 {
     if (!glfwInit())
@@ -185,11 +182,6 @@ void RenderScene(const Shader* shader)
     shader->Bind();
     shader->SetMat4("model", model);
     terrain->Render();
-    
-  /*  model = glm::scale(glm::mat4(1), glm::vec3(0.01f));
-    model = glm::rotate(model, -90.f, {1.0f, 1.0f, 1.0f });
-    model = glm::translate(model,{0.0f, 0.0f, 150.0f });
-    shader->SetMat4("model", model);*/
    
     airplane->Draw(shader);
 
@@ -209,8 +201,6 @@ void RenderScene(const Shader* shader)
 
     glDisable(GL_DEPTH_TEST);
 }
-
-/// functia care deseneaza
 void RenderFunction(GLFWwindow* window)
 {
     Skybox skybox;
@@ -241,10 +231,6 @@ void RenderFunction(GLFWwindow* window)
         glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 
         glClear(GL_DEPTH_BUFFER_BIT);
-
-        //glActiveTexture(GL_TEXTURE0);
-
-        //glBindTexture(GL_TEXTURE_2D, floorTexture);
 
         glEnable(GL_CULL_FACE);
 
@@ -277,9 +263,6 @@ void RenderFunction(GLFWwindow* window)
         ShadowMappingShader->SetMat4("lightSpaceMatrix", light.LightSpaceMatrix());
         ShadowMappingDepthShader->SetMat4("lightViewMatrix", light.ViewMatrix());
 
-
-        // glActiveTexture(GL_TEXTURE0);
-        // glBindTexture(GL_TEXTURE_2D, floorTexture);
         glActiveTexture(GL_TEXTURE5);
         glBindTexture(GL_TEXTURE_2D, depthMap);
         ShadowMappingShader->SetValue("shadowMap", 5);
