@@ -11,8 +11,8 @@
 #include "PointLight.h"
 #include "Model.h"
 #include "Airplane.h"
-int nScreenWidth = GetSystemMetrics(SM_CXSCREEN);
-int nScreenHeight = GetSystemMetrics(SM_CYSCREEN);
+int nScreenWidth = 1920;
+int nScreenHeight = 1080;
 #define SCR_HEIGHT nScreenHeight 
 #define SCR_WIDTH nScreenWidth
 //Model* Airplane = nullptr;
@@ -149,7 +149,7 @@ void InitWindow(GLFWwindow* (&window), const std::string& title)
         exit(-1);
     }
 
-    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, title.c_str(), glfwGetPrimaryMonitor(), NULL);
+    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, title.c_str(), NULL, NULL);
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);

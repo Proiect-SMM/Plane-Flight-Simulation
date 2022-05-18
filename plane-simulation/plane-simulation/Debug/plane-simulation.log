@@ -1,9 +1,4 @@
-﻿  Airplane.cpp
-C:\Users\adeli\OneDrive\Desktop\Sem 2 anul 2\PID\ImageProcessingFramework-main\ImageProcessingFramework-main\Plane-Flight-Simulation\plane-simulation\plane-simulation\Mesh.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-C:\Users\adeli\OneDrive\Desktop\Sem 2 anul 2\PID\ImageProcessingFramework-main\ImageProcessingFramework-main\Plane-Flight-Simulation\plane-simulation\plane-simulation\Airplane.cpp(151,19): warning C4305: '=': truncation from 'double' to 'T'
-          with
-          [
-              T=float
-          ]
-C:\Users\adeli\OneDrive\Desktop\Sem 2 anul 2\PID\ImageProcessingFramework-main\ImageProcessingFramework-main\Plane-Flight-Simulation\plane-simulation\plane-simulation\Airplane.cpp(184,18): warning C4305: 'initializing': truncation from 'double' to 'float'
-  plane-simulation.vcxproj -> C:\Users\adeli\OneDrive\Desktop\Sem 2 anul 2\PID\ImageProcessingFramework-main\ImageProcessingFramework-main\Plane-Flight-Simulation\plane-simulation\Debug\plane-simulation.exe
+﻿  Skybox.cpp
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Mesh.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\plane-simulation\Skybox.cpp(115,115): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  plane-simulation.vcxproj -> C:\Users\razva\OneDrive - Universitatea Transilvania din Brasov\Desktop\SMM\plane-simulation\Plane-Flight-Simulation\plane-simulation\Debug\plane-simulation.exe

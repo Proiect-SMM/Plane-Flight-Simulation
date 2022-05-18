@@ -74,12 +74,12 @@ static unsigned int loadCubemap(std::vector<std::string> faces)
 
 static std::vector<std::string> Images
 {       
-	    "bluecloud_ft.jpg",
-		"bluecloud_bk.jpg",
-		"bluecloud_up.jpg",
-		"bluecloud_dn.jpg",	
-		"bluecloud_rt.jpg",
-		"bluecloud_lf.jpg"
+	    "yellowcloud_ft.jpg",
+		"yellowcloud_bk.jpg",
+		"yellowcloud_up.jpg",
+		"yellowcloud_dn.jpg",	
+		"yellowcloud_rt.jpg",
+		"yellowcloud_lf.jpg"
 };
 
 Skybox::Skybox()
