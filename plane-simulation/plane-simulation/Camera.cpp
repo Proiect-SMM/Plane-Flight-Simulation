@@ -44,6 +44,13 @@ void Camera::Reshape(int windowWidth, int windowHeight)
 	glViewport(0, 0, windowWidth, windowHeight);
 }
 
+const glm::vec3 Camera::GetPosition() const
+{ 
+	
+return position;
+	
+}
+
 const glm::mat4 Camera::GetViewMatrix() const
 {
 	// Returns the View Matrix
@@ -122,6 +129,20 @@ void Camera::ProcessMouseScroll(float yOffset)
 		FoVy = 1.0f;
 	if (FoVy >= 90.0f)
 		FoVy = 90.0f;
+}
+
+void Camera::SetMode(const int& m)
+{
+	
+   mode = m;
+	
+}
+
+void Camera::BindAirplane(Airplane* airplane)
+{
+	
+	boundPlane = airplane;
+	
 }
 
 void Camera::ProcessMouseMovement(float xOffset, float yOffset, bool constrainPitch)
