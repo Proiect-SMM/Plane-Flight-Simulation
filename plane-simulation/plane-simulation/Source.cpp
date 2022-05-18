@@ -7,7 +7,7 @@
 #include "Shader.h"
 #include "Skybox.h"
 #include "Model.h"
-
+#include "Terrain.h"
 
 #pragma comment (lib, "glfw3dll.lib")
 #pragma comment (lib, "glew32.lib")
@@ -21,7 +21,7 @@ const unsigned int SCR_WIDTH = 1280;
 const unsigned int SCR_HEIGHT = 720;
 
 Camera* pCamera = nullptr;
-
+Terrain* terrain = nullptr;
 void Cleanup();
 void processInput(GLFWwindow* window);
 void scroll_callback(GLFWwindow* window, double xoffset, double yOffset);
@@ -34,6 +34,8 @@ int main(void) {
 	GLFWwindow* window;
 	InitWindow(window, "Plane-Simulation");
 
+	terrain = new Terrain("terrain/map.jpg");
+
 	glEnable(GL_DEPTH_TEST);
 
 	Shader simpleShader("basic.vs", "basic.fs");
@@ -42,7 +44,8 @@ int main(void) {
 
 	Model* airplane = new Model("airplane/airplane.obj");
 
-	pCamera = new Camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0.0, 0.0, 10.0));
+	pCamera = new Camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0, 100.0, 90.0));
+
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
@@ -72,7 +75,12 @@ int main(void) {
 		//const Shader shader = simpleShader;
 		airplane->Draw(&simpleShader); 
 
+		model = glm::mat4(0.7f);
+		//model= glm::scale(glm::mat4(1), glm::vec3(0.01f,0.01f,0.01f));
+		simpleShader.SetMat4("model", model);
+		terrain->Render();
 		
+
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		//--stop desenare patrat
 
