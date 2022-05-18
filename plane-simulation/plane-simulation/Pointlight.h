@@ -17,6 +17,6 @@ public:
 	glm::vec3 GetPosition();
 
 	glm::mat4 ViewMatrix();
-	glm::mat4 LightSpaceMatrix();
+	glm::mat4 LightSpaceMatrix(); 
 
 };
