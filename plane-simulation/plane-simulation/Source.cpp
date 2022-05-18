@@ -43,7 +43,8 @@ int main(void) {
 	Skybox skybox;
 
 	Model* airplane = new Model("airplane/airplane.obj");
-
+	Model* tower = new Model("tower/scene.gltf");
+	Model* airport = new Model("airport/scene.gltf");
 	pCamera = new Camera(SCR_WIDTH, SCR_HEIGHT, glm::vec3(0, 100.0, 90.0));
 
 
@@ -70,7 +71,9 @@ int main(void) {
 		simpleShader.SetMat4("projection", pCamera->GetProjectionMatrix());
 		simpleShader.SetMat4("view", pCamera->GetViewMatrix());
 		glm::mat4 model = glm::scale(glm::mat4(1), glm::vec3(0.01f));
-		model = glm::rotate(model, -90.f, {1.0f, 0.0f, 0.0f });
+		model = glm::rotate(model, -90.f, {1.0f, 1.0f, 1.0f });
+	//	model = glm::rotate(model, -90.f, { 1.0f, 0.0f, 0.0f });
+		model = glm::translate(model,{0.0f, 0.0f, 150.0f });
 		simpleShader.SetMat4("model", model);
 		//const Shader shader = simpleShader;
 		airplane->Draw(&simpleShader); 
@@ -80,10 +83,22 @@ int main(void) {
 		simpleShader.SetMat4("model", model);
 		terrain->Render();
 		
-
+		model = glm::mat4(0.7f);
+		model = glm::scale(model, { 0.2f,0.2f,0.2f });
+		model = glm::rotate(model, -90.f, { 1.0f, 1.0f, 1.0f });
+		model = glm::translate(model, { 850.0f, 200.0f, 70.0f });
+		simpleShader.SetMat4("model", model);
+		tower->Draw(&simpleShader);
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		//--stop desenare patrat
-
+	
+		model = glm::mat4(0.7f);
+		model = glm::scale(model, { 0.7f,0.7f,0.7f });
+		model = glm::rotate(model, -90.f, { 1.0f, 1.0f, 1.0f });
+		model = glm::translate(model, { 50.0f, 100.0f, 1.0f });
+		simpleShader.SetMat4("model", model);
+		
+		airport->Draw(&simpleShader);
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
 

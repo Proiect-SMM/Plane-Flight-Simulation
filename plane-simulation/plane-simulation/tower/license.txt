@@ -1,0 +1,11 @@
+Model Information:
+* title:	Johannesburg airport tower
+* source:	https://sketchfab.com/3d-models/johannesburg-airport-tower-73b6b31df5fc444da63e64b708e97c3e
+* author:	Martin Mikulić (https://sketchfab.com/martin_mikulic)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Johannesburg airport tower" (https://sketchfab.com/3d-models/johannesburg-airport-tower-73b6b31df5fc444da63e64b708e97c3e) by Martin Mikulić (https://sketchfab.com/martin_mikulic) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -51,7 +51,7 @@ private:
 	void UpdateCameraVectors();
 
 protected:
-	const float cameraSpeedFactor = 15.5f;
+	const float cameraSpeedFactor = 100.5f;
 	const float mouseSensitivity = 0.1f;
 
 	// Perspective properties

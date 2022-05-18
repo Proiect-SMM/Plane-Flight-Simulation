@@ -32,7 +32,7 @@ void Camera::Set(const int width, const int height, const glm::vec3& position)
 
 void Camera::Reset(const int width, const int height)
 {
-	Set(width, height, startPosition);
+	Set(width, height, position);
 }
 
 void Camera::Reshape(int windowWidth, int windowHeight)
