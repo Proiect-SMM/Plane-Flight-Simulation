@@ -22,5 +22,5 @@ public:
 	{
 		LoadModel(path);
 	}
-	void Draw(const Shader& shader);
+	void Draw(Shader* shader);
 };

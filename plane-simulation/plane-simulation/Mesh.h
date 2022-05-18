@@ -4,14 +4,6 @@
 #include "Shader.h";
 #include <vector>
 #include <string>
-struct Material {
-	glm::vec3 Ka;
-	glm::vec3 Kd;
-	glm::vec3 Ks;
-	float shininess;
-	std::string name;
-	int textureId;
-};
 
 struct Vertex
 {
@@ -25,8 +17,7 @@ class Mesh
 {
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
-	std::vector<glm::vec3> textureCoord;
-	Material material;
+	std::vector<Texture*> textureCoord;
 
 	unsigned int VAO;
 	unsigned int VBO;
@@ -36,8 +27,8 @@ class Mesh
 public:
 
 	Mesh() = default;
-	Mesh(std::vector<Vertex> vert, std::vector<unsigned int> ind, Material material);
+	Mesh(std::vector<Vertex> vert, std::vector<unsigned int> ind, std::vector<Texture*> tex);
 
-	void Draw(Shader& shader);
+	void Draw(const Shader* shader);
 };
 

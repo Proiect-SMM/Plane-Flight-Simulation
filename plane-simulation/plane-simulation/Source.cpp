@@ -36,7 +36,7 @@ int main(void) {
 
 	glEnable(GL_DEPTH_TEST);
 
-	Shader simpleShader("basic.vs", "basic.fs");
+	Shader* simpleShader= new Shader("basic.vs", "basic.fs");
 
 	Skybox skybox;
 
@@ -63,12 +63,12 @@ int main(void) {
 
 		glEnable(GL_DEPTH_TEST);
 
-		simpleShader.Bind();
-		simpleShader.SetMat4("projection", pCamera->GetProjectionMatrix());
-		simpleShader.SetMat4("view", pCamera->GetViewMatrix());
+		simpleShader->Bind();
+		simpleShader->SetMat4("projection", pCamera->GetProjectionMatrix());
+		simpleShader->SetMat4("view", pCamera->GetViewMatrix());
 		glm::mat4 model = glm::scale(glm::mat4(1), glm::vec3(0.01f));
 		model = glm::rotate(model, -90.f, {1.0f, 0.0f, 0.0f });
-		simpleShader.SetMat4("model", model);
+		simpleShader->SetMat4("model", model);
 		
 		airplane->Draw(simpleShader);
 

@@ -1,60 +1,81 @@
 #include "Mesh.h"
 #include <string>
 
-
-Mesh::Mesh(std::vector<Vertex> vert, std::vector<unsigned int> ind, Material material)
+Mesh::Mesh(std::vector<Vertex> vert, std::vector<unsigned int> ind, std::vector<Texture*> tex)
 {
 	vertices = vert;
 	indices = ind;
-	this->material = material;
+	textureCoord = tex;
+
 	setupMesh();
 }
 
-void Mesh::Draw(Shader& shader) {
-	glActiveTexture(GL_TEXTURE0);
-	// now set the sampler to the correct texture unit
-	glUniform1i(glGetUniformLocation(shader.GetID(), std::string("Texture").c_str()), 0);
-	// and finally bind the texture
-	glBindTexture(GL_TEXTURE_2D, material.textureId);
+void Mesh::Draw(const Shader* shader)
+{
+	unsigned int diffuseNr = 0;
+	unsigned int normalNr = 0;
+	unsigned int heightNr = 0;
+	unsigned int specularNr = 0;
 
-	shader.SetValue("material.shininess", material.shininess);
+	shader->Bind();
 
-	// draw mesh
+	for (unsigned int i = 0; i < textureCoord.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i);
+		glBindTexture(GL_TEXTURE_2D, textureCoord[i]->GetID());
+
+		std::string number;
+		std::string type = textureCoord[i]->GetType();
+		if (type == "texture_diffuse")
+			number = std::to_string(diffuseNr++);
+		else if (type == "texture_specular")
+			number = std::to_string(specularNr++);
+		else if (type == "texture_normal")
+			number = std::to_string(normalNr++);
+		else if (type == "texture_height")
+			number = std::to_string(heightNr++);
+
+		shader->SetValue(type + number, i);
+	}
+
 	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
-	// always good practice to set everything back to defaults once configured.
-	glActiveTexture(GL_TEXTURE0);
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
+
+	glBindVertexArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	for (unsigned int i = 0; i < textureCoord.size(); i++)
+	{
+
+		glActiveTexture(GL_TEXTURE0 + i);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 }
 
 void Mesh::setupMesh()
 {
-    // create buffers/arrays
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
+	glGenVertexArrays(1, &VAO);
 
-    glBindVertexArray(VAO);
-    // load data into vertex buffers
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    // A great thing about structs is that their memory layout is sequential for all its items.
-    // The effect is that we can simply pass a pointer to the struct and it translates perfectly to a glm::vec3/2 array which
-    // again translates to 3/2 floats which translates to a byte array.
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+	glGenBuffers(1, &VBO);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+	glGenBuffers(1, &EBO);
 
-    // set the vertex attribute pointers
-    // vertex Positions 
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-    // vertex normals
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
-    //// vertex texture coords
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-    glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
+
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+
 }

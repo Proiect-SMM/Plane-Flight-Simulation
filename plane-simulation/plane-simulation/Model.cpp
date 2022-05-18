@@ -158,7 +158,7 @@ std::vector<Texture*> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType
 	return textures;
 }
 
-void Model::Draw(const Shader* shader)
+void Model::Draw( Shader* shader)
 {
 	for (unsigned int i = 0; i < meshes.size(); i++)
 	{
